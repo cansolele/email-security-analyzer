@@ -126,39 +126,78 @@ def is_suspicious_ip(ip: str) -> bool:
 def extract_urls(content: str) -> List[Dict[str, str]]:
     """
     Extract URLs and their corresponding link texts from HTML content.
-    Finds both hrefs in <a> tags and raw URLs in text.
+    Finds both hrefs in <a> tags and raw URLs in text, avoiding duplicates.
     """
     extracted = []
-    
-    a_tag_pattern = re.compile(r'<a\\s+(?:[^>]*?\\s+)?href="([^"]*)"[^>]*>(.*?)<\\/a>', re.IGNORECASE | re.DOTALL)
-    
-    for match in a_tag_pattern.finditer(content):
-        href = match.group(1).strip()
-        text = re.sub('<[^<]+?>', '', match.group(2)).strip()
-        if href:
-            extracted.append({'href': href, 'text': text or href})
+    content_for_raw_scan = content
 
-    raw_url_pattern = re.compile(r'https?://[^\\s<>"]+[^\\s<>"\\.,]')
-    for match in raw_url_pattern.finditer(content):
+    # Regex for <a href="..."> tags
+    a_tag_pattern = re.compile(r'<a\s+[^>]*?href="([^"]*)"[^>]*>(.*?)</a>', re.IGNORECASE | re.DOTALL)
+    
+    # Use finditer to process matches and modify the content for the next step
+    matches = list(a_tag_pattern.finditer(content))
+    
+    # To avoid messing up string indices, we replace matched parts after finding them all.
+    # We replace from end to start.
+    for match in reversed(matches):
+        href = match.group(1).strip()
+        # Remove any inner HTML tags from the link's text content
+        text = re.sub('<[^<]+?>', '', match.group(2)).strip()
+        
+        if href:
+            # Prepend to maintain original order, since we are iterating backwards
+            extracted.insert(0, {'href': href, 'text': text or href})
+        
+        # Remove the entire <a> tag from the content to avoid re-scanning its text
+        content_for_raw_scan = content_for_raw_scan[:match.start()] + content_for_raw_scan[match.end():]
+
+    # Regex for raw http/https URLs not in an <a> tag
+    raw_url_pattern = re.compile(r'https?://[^\s<>"]+[^\s<>".,]')
+    
+    for match in raw_url_pattern.finditer(content_for_raw_scan):
         url = match.group(0)
+        # Add only if it wasn't part of an <a> tag's href attribute already
         if not any(url == item['href'] for item in extracted):
-             extracted.append({'href': url, 'text': url})
+            extracted.append({'href': url, 'text': url})
 
     return extracted[:20]
 
 
 def detect_javascript(content: str, patterns: List[str]) -> List[str]:
-    """Detect JavaScript in content and return fragments"""
-    fragments = []
+    """Detect JavaScript in content and return fragments, prioritizing full script tags."""
+    found_fragments = set()
     
-    for pattern in patterns:
-        matches = re.finditer(pattern, content, re.IGNORECASE | re.DOTALL)
-        for match in matches:
-            start = max(0, match.start() - 50)
-            end = min(len(content), match.end() + 50)
-            fragment = content[start:end].strip()
-            
-            if fragment not in fragments:
-                fragments.append(fragment)
+    if not patterns:
+        return []
+        
+    # The first pattern is for <script> tags, with a capturing group for the content.
+    script_pattern_str = patterns[0]
+    script_pattern = re.compile(script_pattern_str, re.IGNORECASE | re.DOTALL)
     
-    return fragments 
+    # 1. Extract content from all <script> tags.
+    for match in script_pattern.finditer(content):
+        if match.groups():
+            script_content = match.group(1).strip()
+            if script_content:
+                found_fragments.add(script_content)
+
+    # 2. Create a version of the content with <script> tags removed to find inline JS.
+    content_without_scripts = script_pattern.sub(' ', content)
+    
+    # 3. Search for other inline JS patterns in the remaining content.
+    other_patterns = patterns[1:]
+    for pattern_str in other_patterns:
+        try:
+            pattern = re.compile(pattern_str, re.IGNORECASE | re.DOTALL)
+            for match in pattern.finditer(content_without_scripts):
+                # For inline JS, extract a snippet for context.
+                start = max(0, match.start() - 50)
+                end = min(len(content_without_scripts), match.end() + 50)
+                snippet = content_without_scripts[start:end].strip()
+                if snippet:
+                    found_fragments.add(snippet)
+        except re.error:
+            # Ignore invalid regex patterns in the constants
+            continue
+    
+    return list(found_fragments) 

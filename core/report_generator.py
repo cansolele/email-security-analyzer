@@ -359,8 +359,24 @@ class ReportGenerator:
 
         if content_analysis['urls_found']:
             html_content += f"""<div class="section-divider"><h6><i class="fas fa-link"></i> {get_text('found_urls', self.language)}</h6><div class="mb-3">"""
-            for url in content_analysis['urls_found'][:10]:
-                html_content += f'<div class="url-item"><i class="fas fa-external-link-alt"></i> {url}</div>'
+            for url_data in content_analysis['urls_found'][:10]:
+                href = html.escape(url_data.get('href', ''))
+                text = html.escape(url_data.get('text', ''))
+                
+                if len(text) > 70:
+                    text = text[:67] + '...'
+
+                display_text = text if text and text != href else href
+                
+                if not href.startswith(('http://', 'https://')):
+                    href = f"http://{href}"
+
+                html_content += f"""
+                    <div class="url-item" title="{href}">
+                        <i class="fas fa-external-link-alt"></i>
+                        <a href="{href}" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-dark">{display_text}</a>
+                    </div>"""
+
             if len(content_analysis['urls_found']) > 10:
                 html_content += f'<small class="text-muted">{get_text("and_more_links", self.language).format(len(content_analysis["urls_found"]) - 10)}</small>'
             html_content += """</div></div>"""
