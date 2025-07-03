@@ -1,0 +1,29 @@
+From: "Your Bank" <support@security-update.com>
+To: "Customer" <customer@example.com>
+Subject: Urgent: Please verify your account
+Date: Mon, 29 Jul 2024 11:00:00 +0000
+Message-ID: <phish.67890@security-update.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="phishingboundary"
+
+--phishingboundary
+Content-Type: text/html; charset="UTF-8"
+
+<!DOCTYPE html>
+<html>
+<body>
+  <h3>Security Alert!</h3>
+  <p>We have detected suspicious activity on your account. For your security, your account has been temporarily locked.</p>
+  <p>Please click the link below to verify your identity and unlock your account immediately. This link will expire in 10 minutes.</p>
+  <p><a href="http://evil-phishing-site.xyz/verify-login?user=customer@example.com">https://my-secure-bank.com/verify</a></p>
+  <p>Thank you for your cooperation.</p>
+</body>
+</html>
+
+--phishingboundary
+Content-Type: application/zip; name="invoice.zip"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="invoice.zip"
+
+UEsDBAoAAAAAAKm4dFQAAAAAAAAAAAAAAAAEAAAAdGVzdC50eHRQSwECPwAKAAAAAACpuHRUAAAAAAAAAAAAAAAABAAYAAAAAAAAAAAAAAAAAAAAAAB0ZXN0LnR4dFBLBQYAAAAAAQABAFIAAAArAAAAAAA=
+--phishingboundary-- 

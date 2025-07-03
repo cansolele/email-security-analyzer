@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анализ безопасности Email: high_risk_email.eml</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .risk-badge {
+            font-size: 1em;
+            padding: 0.5em 1em;
+            border-radius: 20px;
+        }
+        .header-table {
+            font-size: 0.9em;
+        }
+        .section-divider {
+            border-top: 2px solid #e9ecef;
+            margin: 2rem 0 1rem 0;
+            padding-top: 1rem;
+        }
+        .routing-hop {
+            border-left: 3px solid #007bff;
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+        }
+        .attachment-item {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        .url-item {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            margin: 0.25rem;
+            display: inline-block;
+            font-size: 0.875em;
+        }
+        .email-content-frame {
+            border: 2px solid #dee2e6;
+            border-radius: 0.375rem;
+            background: white;
+            padding: 1rem;
+            margin: 1rem 0;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .decoded-image {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem;
+            margin: 0.5rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .image-item {
+            text-align: center;
+            max-width: 300px;
+        }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875em;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-dark" style="background: linear-gradient(135deg, #dc3545, #6c757d);">
+        <div class="container">
+            <span class="navbar-brand">
+                <i class="fas fa-envelope-open"></i> Анализ безопасности Email: high_risk_email.eml
+            </span>
+            <span class="badge bg-danger risk-badge">
+                Высокий (60/100)
+            </span>
+        </div>
+    </nav>
+    
+    <div class="container mt-4">
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card" style="border-left: 5px solid #dc3545;">
+                    <div class="card-header">
+                        <h5><i class="fas fa-info-circle"></i> Сводка анализа</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Файл:</strong> high_risk_email.eml</p>
+                        <p><strong>Время анализа:</strong> 03.07.2025 12:35:10</p>
+                        <p><strong>Уровень риска:</strong> 
+                            <span class="badge bg-danger">Высокий</span>
+                            (60/100 баллов)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+                <div class="card email-card" id="email-0" style="border-left-color: #dc3545;">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-1"><i class="fas fa-envelope"></i> high_risk_email.eml</h5>
+                            <small class="text-muted">Анализ от 03.07.2025 12:35</small>
+                        </div>
+                        <span class="badge bg-danger risk-badge">Высокий (60/100)</span>
+                    </div>
+                    <div class="card-body">
+                        <h6><i class="fas fa-info-circle"></i> Основная информация</h6>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <table class="table table-sm header-table">
+                                    <tr><td style="width: 80px;"><strong>От:</strong></td><td style="word-break: break-all;">"IT Department" admin@corporate-system.net</td></tr>
+                                    <tr><td><strong>Кому:</strong></td><td style="word-break: break-all;">"Employee" employee@example.com</td></tr>
+                                    <tr><td><strong>Тема:</strong></td><td>CRITICAL UPDATE - Run immediately</td></tr>
+                                    <tr><td><strong>Дата:</strong></td><td>Mon, 29 Jul 2024 12:00:00 +0000</td></tr>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <table class="table table-sm header-table">
+                                    <tr><td><strong>Return-Path:</strong></td><td></td></tr>
+                                    <tr><td><strong>Message-ID:</strong></td><td style="word-break: break-all; font-size: 0.75em;"><malware.13579@corporate-system.net></td></tr>
+                                    <tr><td><strong>Тип содержимого:</strong></td><td>multipart/mixed</td></tr>
+                                    <tr><td><strong>Размер:</strong></td><td>445 байт</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="section-divider">
+                            <h6><i class="fas fa-shield-alt"></i> Статус безопасности</h6>
+                            <div class="mb-3"><span class="badge bg-danger me-2"><i class="fas fa-times"></i> DKIM Отсутствует</span><span class="badge bg-info me-2"><i class="fas fa-code"></i> HTML содержимое</span><span class="badge bg-warning me-2"><i class="fas fa-exclamation-triangle"></i> JavaScript обнаружен</span><span class="badge bg-secondary me-2"><i class="fas fa-paperclip"></i> Вложения: 1</span><span class="badge bg-info me-2"><i class="fas fa-lock"></i> Base64 контент</span></div></div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h6><i class="fas fa-exclamation-triangle"></i> Факторы риска</h6><ul class="list-unstyled"><li><small><i class="fas fa-caret-right text-danger"></i> Отсутствует DKIM подпись</small></li><li><small><i class="fas fa-caret-right text-danger"></i> Обнаружен JavaScript код</small></li><li><small><i class="fas fa-caret-right text-danger"></i> Найдено вложение высокого риска: update.js</small></li></ul></div><div class="col-md-6"><h6><i class="fas fa-bug"></i> Индикаторы угроз</h6><p class="text-success"><small><i class="fas fa-check"></i> Угрозы не обнаружены</small></p></div></div><div class="section-divider"><h6><i class="fas fa-exclamation-triangle"></i> Обнаруженные JavaScript фрагменты</h6><div class="alert alert-warning"><i class="fas fa-shield-alt"></i> В письме обнаружен JavaScript код. Ниже приведены фрагменты кода для анализа:</div><div class="mb-3"><h6 class="text-warning">Фрагмент 1:</h6><div class="code-block bg-light border border-warning"><small>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;script&gt;
+  // This script simulates a malicious action
+  window.onload = function() {
+    console.log(&quot;Malicious script executed!&quot;);
+    eval(&quot;var x = 1;&quot;);
+  };
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h3&gt;System Update Required&lt;/h3&gt;</small></div></div><div class="mb-3"><h6 class="text-warning">Фрагмент 2:</h6><div class="code-block bg-light border border-warning"><small>console.log(&quot;Malicious script executed!&quot;);
+    eval(&quot;var x = 1;&quot;);
+  };
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h3</small></div></div><div class="mb-3"><h6 class="text-warning">Фрагмент 3:</h6><div class="code-block bg-light border border-warning"><small>This script simulates a malicious action
+  window.onload = function() {
+    console.log(&quot;Malicious script ex</small></div></div></div><div class="section-divider"><h6><i class="fas fa-paperclip"></i> Детальный анализ вложений</h6><div class="attachment-item border-warning"><div class="d-flex justify-content-between align-items-start"><div><strong><i class="fas fa-file"></i> update.js</strong><br><small class="text-muted">Тип содержимого: application/javascript | Размер: 35 байт | Кодировка: base64</small><br><div class="mt-1"><span class="badge bg-warning me-1"><i class="fas fa-exclamation-triangle"></i> Опасное расширение: .js</span></div></div></div></div></div><div class="section-divider"><h6><i class="fas fa-file-text"></i> Содержимое письма</h6><div class="mb-3"><strong>HTML код:</strong><div class="collapsible-content"><pre class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;script&gt;
+  // This script simulates a malicious action
+  window.onload = function() {
+    console.log(&quot;Malicious script executed!&quot;);
+    eval(&quot;var x = 1;&quot;);
+  };
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h3&gt;System Update Required&lt;/h3&gt;
+  &lt;p&gt;Please find the attached update script. You need to run it to get the latest security patches.&lt;/p&gt;
+  &lt;p&gt;Your compliance is mandatory.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre></div></div><div class="mb-3"><strong>Отображение HTML письма:</strong><div class="email-content-frame"><!DOCTYPE html>
+<html>
+<head>
+<script>
+  // This script simulates a malicious action
+  window.onload = function() {
+    console.log("Malicious script executed!");
+    eval("var x = 1;");
+  };
+</script>
+</head>
+<body>
+  <h3>System Update Required</h3>
+  <p>Please find the attached update script. You need to run it to get the latest security patches.</p>
+  <p>Your compliance is mandatory.</p>
+</body>
+</html>
+</div></div></div><div class="section-divider"><h6><i class="fas fa-list"></i> Все заголовки письма</h6><div class="collapsible-content"><table class="table table-sm header-table"><tr><td style="width: 200px;"><strong>From:</strong></td><td style="word-break: break-all; font-size: 0.8em;">"IT Department" <admin@corporate-system.net></td></tr><tr><td style="width: 200px;"><strong>To:</strong></td><td style="word-break: break-all; font-size: 0.8em;">"Employee" <employee@example.com></td></tr><tr><td style="width: 200px;"><strong>Subject:</strong></td><td style="word-break: break-all; font-size: 0.8em;">CRITICAL UPDATE - Run immediately</td></tr><tr><td style="width: 200px;"><strong>Date:</strong></td><td style="word-break: break-all; font-size: 0.8em;">Mon, 29 Jul 2024 12:00:00 +0000</td></tr><tr><td style="width: 200px;"><strong>Message-ID:</strong></td><td style="word-break: break-all; font-size: 0.8em;"><malware.13579@corporate-system.net></td></tr><tr><td style="width: 200px;"><strong>MIME-Version:</strong></td><td style="word-break: break-all; font-size: 0.8em;">1.0</td></tr><tr><td style="width: 200px;"><strong>Content-Type:</strong></td><td style="word-break: break-all; font-size: 0.8em;">multipart/mixed; boundary="malwareboundary"</td></tr></table></div></div></div></div>
+    </div>
+    
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <div class="container">
+            <p class="mb-0">email-security-analyzer от cansolele © 2025</p>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

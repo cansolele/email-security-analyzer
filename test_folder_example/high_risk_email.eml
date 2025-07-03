@@ -1,0 +1,36 @@
+From: "IT Department" <admin@corporate-system.net>
+To: "Employee" <employee@example.com>
+Subject: CRITICAL UPDATE - Run immediately
+Date: Mon, 29 Jul 2024 12:00:00 +0000
+Message-ID: <malware.13579@corporate-system.net>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="malwareboundary"
+
+--malwareboundary
+Content-Type: text/html; charset="UTF-8"
+
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+  // This script simulates a malicious action
+  window.onload = function() {
+    console.log("Malicious script executed!");
+    eval("var x = 1;");
+  };
+</script>
+</head>
+<body>
+  <h3>System Update Required</h3>
+  <p>Please find the attached update script. You need to run it to get the latest security patches.</p>
+  <p>Your compliance is mandatory.</p>
+</body>
+</html>
+
+--malwareboundary
+Content-Type: application/javascript; name="update.js"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="update.js"
+
+Y29uc29sZS5sb2coIktleWxvZ2dlciBBY3RpdmF0ZWQiKTs=
+--malwareboundary-- 

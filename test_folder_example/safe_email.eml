@@ -1,0 +1,19 @@
+From: "Example Team" <support@example.com>
+To: "Valued User" <user@example.com>
+Subject: Your Weekly Newsletter
+Date: Mon, 29 Jul 2024 10:00:00 +0000
+Message-ID: <safe.12345@example.com>
+MIME-Version: 1.0
+Content-Type: text/html; charset="UTF-8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=example.com; s=mail; h=from:to:subject:date:message-id:mime-version:content-type; bh=...; b=...
+Authentication-Results: mx.google.com; dkim=pass header.i=@example.com
+
+<!DOCTYPE html>
+<html>
+<body>
+  <h2>Hello!</h2>
+  <p>This is your weekly update. Everything is going great!</p>
+  <p>For more information, visit our website:</p>
+  <a href="https://www.example.com">Visit Example.com</a>
+</body>
+</html> 
