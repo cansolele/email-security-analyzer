@@ -46,7 +46,7 @@ The program generates clear and interactive HTML reports for each analyzed email
 
 Here are some example reports you can view directly in your browser:
 - [Analysis of a high-risk email](reports/1_high.html)
-- [Analysis of a phishing email](reports/2_high.html)
+- [Analysis of a phishing email](reports/2_medium.html)
 - [Analysis of a safe email](reports/3_minimal.html)
 
 ## Risk Levels
